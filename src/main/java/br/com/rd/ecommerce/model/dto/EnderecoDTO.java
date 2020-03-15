@@ -17,6 +17,15 @@ public class EnderecoDTO {
     private String cidade;
     private String estado;
     private String cep;
+    private Long codCliente;
+
+    public Long getCodCliente() {
+        return codCliente;
+    }
+
+    public void setCodCliente(Long codCliente) {
+        this.codCliente = codCliente;
+    }
 
     public String getDestinatario() {
         return destinatario;

@@ -18,4 +18,8 @@ public class CategoriaService {
         categoria.setDescricao(categoriaDTO.getDescCategoria());
         return ResponseEntity.ok().body(repository.save(categoria));
     }
+
+    public ResponseEntity buscarCategoria(){
+        return ResponseEntity.ok().body(repository.findAll());
+    }
 }

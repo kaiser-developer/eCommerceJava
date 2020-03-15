@@ -30,6 +30,7 @@ public class ClienteService {
 
         return ResponseEntity.ok().body(repository.save(cliente));
     }
+
     public ResponseEntity fazerLogin(String email, String senha){
         Cliente cliente = repository.findByEmailAndSenha(email, senha);
         if(cliente != null){

@@ -1,11 +1,13 @@
 package br.com.rd.ecommerce.model.dto;
 
+import br.com.rd.ecommerce.model.entity.Endereco;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -16,6 +18,33 @@ public class PedidoDTO {
     private BigDecimal vlPedido;
     private BigDecimal vlFrete;
     private String dsFormaPagto;
+    private Endereco endereco;
+    private Long codCliente;
+    private List<ItemPedidoDTO> itensPedido;
+
+    public Long getCodCliente() {
+        return codCliente;
+    }
+
+    public void setCodCliente(Long codCliente) {
+        this.codCliente = codCliente;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+
+    public List<ItemPedidoDTO> getItensPedido() {
+        return itensPedido;
+    }
+
+    public void setItensPedido(List<ItemPedidoDTO> itensPedido) {
+        this.itensPedido = itensPedido;
+    }
 
     public Long getCodPedido() {
         return codPedido;

@@ -104,4 +104,20 @@ public class Pedido {
     public void setStatus(Status status) {
         this.status = status;
     }
+
+    public Long getCodCliente() {
+        return codCliente;
+    }
+
+    public void setCodCliente(Long codCliente) {
+        this.codCliente = codCliente;
+    }
+
+    public List<ItemPedido> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<ItemPedido> itens) {
+        this.itens = itens;
+    }
 }

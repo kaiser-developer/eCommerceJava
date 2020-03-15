@@ -50,6 +50,14 @@ public class Endereco {
     @JoinColumn(name = "cod_cliente")
     private Long codCliente;
 
+    public Long getCodCliente() {
+        return codCliente;
+    }
+
+    public void setCodCliente(Long codCliente) {
+        this.codCliente = codCliente;
+    }
+
     public Long getId() {
         return id;
     }
