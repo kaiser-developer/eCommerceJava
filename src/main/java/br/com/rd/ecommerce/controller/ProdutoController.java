@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,5 +31,10 @@ public class ProdutoController {
     @GetMapping("buscar-produto/{id}")
     public Optional<Produto> buscarProdutoId(@PathVariable("id") Long id){
         return service.buscarProdutoId(id);
+    }
+
+    @GetMapping("preco-produto/{id}")
+    public BigDecimal precoProduto(@PathVariable("id") Long id){
+        return service.precoProduto(id);
     }
 }
