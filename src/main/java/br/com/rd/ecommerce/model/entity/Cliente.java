@@ -39,7 +39,7 @@ public class Cliente {
     private List<Endereco> enderecos;
 
     @OneToMany
-    @JoinColumn(name = "cod_pedido")
+    @JoinColumn(name = "cod_cliente")
     private List<Pedido> pedidos;
 
     public Long getCodCliente() {

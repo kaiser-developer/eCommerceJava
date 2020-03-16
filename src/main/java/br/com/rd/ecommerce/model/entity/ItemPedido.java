@@ -10,6 +10,7 @@ import javax.validation.constraints.NotNull;
 public class ItemPedido {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cod_item_pedido")
     private Long codItemPedido;
 

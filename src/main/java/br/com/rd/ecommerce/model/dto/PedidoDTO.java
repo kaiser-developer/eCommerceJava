@@ -18,7 +18,7 @@ public class PedidoDTO {
     private BigDecimal vlPedido;
     private BigDecimal vlFrete;
     private String dsFormaPagto;
-    private Endereco endereco;
+    private Long codEndereco;
     private Long codCliente;
     private List<ItemPedidoDTO> itensPedido;
 
@@ -30,12 +30,12 @@ public class PedidoDTO {
         this.codCliente = codCliente;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    public Long getCodEndereco() {
+        return codEndereco;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setCodEndereco(Long codEndereco) {
+        this.codEndereco = codEndereco;
     }
 
     public List<ItemPedidoDTO> getItensPedido() {

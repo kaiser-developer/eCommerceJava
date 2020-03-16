@@ -32,13 +32,12 @@ public class Pedido {
     private String dsFormaPagto;
 
     @NotNull
-    @JoinColumn(name = "cod_cliente")
+    @Column(name = "cod_cliente")
     private Long codCliente;
 
     @NotNull
-    @ManyToOne
     @JoinColumn(name = "cod_endereco")
-    private Endereco endereco;
+    private Long codEndereco;
 
     @NotNull
     @ManyToOne
@@ -89,12 +88,12 @@ public class Pedido {
         this.dsFormaPagto = dsFormaPagto;
     }
 
-    public Endereco getEndereco() {
-        return endereco;
+    public Long getCodEndereco() {
+        return codEndereco;
     }
 
-    public void setEndereco(Endereco endereco) {
-        this.endereco = endereco;
+    public void setCodEndereco(Long codEndereco) {
+        this.codEndereco = codEndereco;
     }
 
     public Status getStatus() {

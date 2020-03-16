@@ -13,7 +13,7 @@ public class Endereco {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cod_endereco")
-    private Long id;
+    private Long codEndereco;
 
     @NotNull
     @Column(name = "ds_destinatario")
@@ -59,11 +59,11 @@ public class Endereco {
     }
 
     public Long getId() {
-        return id;
+        return codEndereco;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(Long codEndereco) {
+        this.codEndereco = codEndereco;
     }
 
     public String getDestinatario() {

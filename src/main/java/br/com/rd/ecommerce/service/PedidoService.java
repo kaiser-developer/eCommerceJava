@@ -25,7 +25,7 @@ public class PedidoService {
             return ResponseEntity.ok().body(0);
         }
         else if(pedidoDTO.getDsFormaPagto() == null || pedidoDTO.getVlFrete().floatValue() < 0 ||
-        pedidoDTO.getEndereco() == null || pedidoDTO.getItensPedido().size() == 0){
+        pedidoDTO.getCodEndereco() == null || pedidoDTO.getItensPedido().size() == 0){
             return ResponseEntity.ok().body(1);
         }
         Pedido pedido = new Pedido();
@@ -34,7 +34,7 @@ public class PedidoService {
         status.setCod_status(1L);
         pedido.setDsFormaPagto(pedidoDTO.getDsFormaPagto());
         pedido.setDtPedido(new Date());
-        pedido.setEndereco(pedidoDTO.getEndereco());
+        pedido.setCodEndereco(pedidoDTO.getCodEndereco());
         pedido.setVlFrete(pedidoDTO.getVlFrete());
         pedido.setCodCliente(pedidoDTO.getCodCliente());
         pedido.setVlPedido(pedidoDTO.getVlPedido());
