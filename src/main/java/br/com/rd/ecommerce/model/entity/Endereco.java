@@ -47,7 +47,7 @@ public class Endereco {
     private String cep;
 
     @NotNull
-    @JoinColumn(name = "cod_cliente")
+    @Column(name = "cod_cliente")
     private Long codCliente;
 
     public Long getCodCliente() {

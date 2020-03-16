@@ -35,7 +35,7 @@ public class Cliente {
     private String senha;
 
     @OneToMany
-    @JoinColumn(name = "cod_endereco")
+    @JoinColumn(name = "cod_cliente")
     private List<Endereco> enderecos;
 
     @OneToMany
