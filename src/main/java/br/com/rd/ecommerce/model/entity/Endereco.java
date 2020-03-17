@@ -20,8 +20,8 @@ public class Endereco {
     private String destinatario;
 
     @NotNull
-    @Column(name = "ds_lougarouro")
-    private String lougradouro;
+    @Column(name = "ds_logarouro")
+    private String logradouro;
 
     @NotNull
     @Column(name = "nr_numero")
@@ -49,84 +49,4 @@ public class Endereco {
     @NotNull
     @Column(name = "cod_cliente")
     private Long codCliente;
-
-    public Long getCodCliente() {
-        return codCliente;
-    }
-
-    public void setCodCliente(Long codCliente) {
-        this.codCliente = codCliente;
-    }
-
-    public Long getId() {
-        return codEndereco;
-    }
-
-    public void setId(Long codEndereco) {
-        this.codEndereco = codEndereco;
-    }
-
-    public String getDestinatario() {
-        return destinatario;
-    }
-
-    public void setDestinatario(String destinatario) {
-        this.destinatario = destinatario;
-    }
-
-    public String getLougradouro() {
-        return lougradouro;
-    }
-
-    public void setLougradouro(String lougradouro) {
-        this.lougradouro = lougradouro;
-    }
-
-    public Integer getNumero() {
-        return numero;
-    }
-
-    public void setNumero(Integer numero) {
-        this.numero = numero;
-    }
-
-    public String getBairro() {
-        return bairro;
-    }
-
-    public void setBairro(String bairro) {
-        this.bairro = bairro;
-    }
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
-    }
-
-    public String getCidade() {
-        return cidade;
-    }
-
-    public void setCidade(String cidade) {
-        this.cidade = cidade;
-    }
-
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public String getCep() {
-        return cep;
-    }
-
-    public void setCep(String cep) {
-        this.cep = cep;
-    }
 }

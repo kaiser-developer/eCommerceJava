@@ -41,4 +41,8 @@ public class ProdutoService {
     public BigDecimal precoProduto(Long id) {
         return repository.findById(id).get().getValorProduto();
     }
+
+    public ResponseEntity buscarProdutoTexto(String descricao){
+        return ResponseEntity.ok().body(repository.findByDescricaoLike("%" + descricao + "%"));
+    }
 }

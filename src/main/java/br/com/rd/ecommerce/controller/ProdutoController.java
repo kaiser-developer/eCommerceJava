@@ -37,4 +37,9 @@ public class ProdutoController {
     public BigDecimal precoProduto(@PathVariable("id") Long id){
         return service.precoProduto(id);
     }
+
+    @GetMapping("buscar-produto/filtro/{descricao}")
+    public ResponseEntity buscarProdutoDescricao(@PathVariable("descricao") String descricao){
+        return service.buscarProdutoTexto(descricao);
+    }
 }

@@ -20,20 +20,4 @@ public class Imagem {
 
     @Column(name = "cod_produto")
     private Long codProduto;
-
-    public Long getCodImagem() {
-        return codImagem;
-    }
-
-    public void setCodImagem(Long codImagem) {
-        this.codImagem = codImagem;
-    }
-
-    public String getLocal() {
-        return local;
-    }
-
-    public void setLocal(String local) {
-        this.local = local;
-    }
 }

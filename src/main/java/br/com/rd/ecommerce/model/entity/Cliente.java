@@ -42,67 +42,7 @@ public class Cliente {
     @JoinColumn(name = "cod_cliente")
     private List<Pedido> pedidos;
 
-    public Long getCodCliente() {
-        return codCliente;
-    }
-
-    public void setCodCliente(Long codCliente) {
-        this.codCliente = codCliente;
-    }
-
-    public String getNome() {
-        return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public String getCpf() {
-        return cpf;
-    }
-
-    public void setCpf(String cpf) {
-        this.cpf = cpf;
-    }
-
-    public String getTelefone() {
-        return telefone;
-    }
-
-    public void setTelefone(String telefone) {
-        this.telefone = telefone;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
-    public List<Endereco> getEnderecos() {
-        return enderecos;
-    }
-
-    public void setEnderecos(List<Endereco> enderecos) {
-        this.enderecos = enderecos;
-    }
-
-    public List<Pedido> getPedidos() {
-        return pedidos;
-    }
-
-    public void setPedidos(List<Pedido> pedidos) {
-        this.pedidos = pedidos;
-    }
+    @NotNull
+    @Column(name = "ds_sexo")
+    private String sexo;
 }

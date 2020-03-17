@@ -10,12 +10,4 @@ import lombok.NoArgsConstructor;
 public class CategoriaDTO {
 
     private String descCategoria;
-
-    public String getDescCategoria() {
-        return descCategoria;
-    }
-
-    public void setDescCategoria(String descCategoria) {
-        this.descCategoria = descCategoria;
-    }
 }

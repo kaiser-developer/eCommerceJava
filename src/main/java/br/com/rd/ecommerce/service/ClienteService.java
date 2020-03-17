@@ -27,6 +27,7 @@ public class ClienteService {
         cliente.setEmail(clienteDTO.getEmail());
         cliente.setSenha(clienteDTO.getSenha());
         cliente.setTelefone(clienteDTO.getTelefone());
+        cliente.setSexo(clienteDTO.getSexo());
 
         return ResponseEntity.ok().body(repository.save(cliente));
     }

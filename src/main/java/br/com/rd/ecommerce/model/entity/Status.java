@@ -14,20 +14,4 @@ public class Status {
     @NotNull
     @Column(name = "ds_descricao")
     private String descricao;
-
-    public Long getCod_status() {
-        return cod_status;
-    }
-
-    public void setCod_status(Long cod_status) {
-        this.cod_status = cod_status;
-    }
-
-    public String getDescricao() {
-        return descricao;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
 }

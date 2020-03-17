@@ -29,7 +29,7 @@ public class EnderecoService {
         if(enderecoDTO.getCep() == null){
             return ResponseEntity.ok().body(null);
         }else if(enderecoDTO.getCep() == null || enderecoDTO.getBairro() == null || enderecoDTO.getCidade() == null &&
-                enderecoDTO.getDestinatario() == null || enderecoDTO.getEstado() == null && enderecoDTO.getLougradouro() == null
+                enderecoDTO.getDestinatario() == null || enderecoDTO.getEstado() == null && enderecoDTO.getLogradouro() == null
                 && enderecoDTO.getCodCliente() == null || enderecoDTO.getNumero() == null){
             return ResponseEntity.ok().body(null);
         }else{
@@ -41,7 +41,7 @@ public class EnderecoService {
             endereco.setDestinatario(enderecoDTO.getDestinatario());
             endereco.setCodCliente(enderecoDTO.getCodCliente());
             endereco.setNumero(enderecoDTO.getNumero());
-            endereco.setLougradouro(enderecoDTO.getLougradouro());
+            endereco.setLogradouro(enderecoDTO.getLogradouro());
             endereco.setEstado(enderecoDTO.getEstado());
             return ResponseEntity.ok().body(repository.save(endereco));
         }
