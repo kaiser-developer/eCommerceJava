@@ -16,12 +16,17 @@ public class EnderecoService {
     private EnderecoRepository repository;
 
     public ResponseEntity buscarEnderecos(Long codCliente){
-        List<Endereco> enderecos = repository.findByCodCliente(codCliente);
+        try {
+            List<Endereco> enderecos = repository.findByCodCliente(codCliente);
 
-        if (enderecos != null || enderecos.size() > 0){
-            return ResponseEntity.ok().body(enderecos);
-        }else{
-            return ResponseEntity.ok().body(null);
+            if (enderecos != null || enderecos.size() > 0){
+                return ResponseEntity.ok().body(enderecos);
+            }else{
+                return ResponseEntity.ok().body(null);
+            }
+        }catch (Exception e){
+            String erro = "Não foi possivel buscar os endereços";
+            return ResponseEntity.badRequest().body(erro);
         }
     }
 
@@ -47,7 +52,7 @@ public class EnderecoService {
                 return ResponseEntity.ok().body(repository.save(endereco));
             }
         } catch (Exception e){
-            String erro = "Erro ao cadastrar o enedereço";
+            String erro = "Erro ao cadastrar o endereço";
             return ResponseEntity.badRequest().body(erro);
         }
     }

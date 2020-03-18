@@ -25,32 +25,37 @@ public class ProdutoService {
 
     public ResponseEntity salvarProduto(ProdutoDTO produtoDto){
 
-        Produto produto = new Produto();
-        produto.setCategoria(produtoDto.getCategoria());
-        produto.setDescricao(produtoDto.getDescProduto());
-        produto.setImagens(produtoDto.getImagens());
-        produto.setQtdProduto(produtoDto.getQtdProduto());
-        produto.setValorProduto(produtoDto.getValorProduto());
+        try {
+            Produto produto = new Produto();
+            produto.setCategoria(produtoDto.getCategoria());
+            produto.setDescricao(produtoDto.getDescProduto());
+            produto.setImagens(produtoDto.getImagens());
+            produto.setQtdProduto(produtoDto.getQtdProduto());
+            produto.setValorProduto(produtoDto.getValorProduto());
 
-        return ResponseEntity.ok().body(repository.save(produto));
+            return ResponseEntity.ok().body(repository.save(produto));
+        }catch (Exception e){
+            String erro = "Falha ao tentar cadastrar o produto";
+            return ResponseEntity.badRequest().body(erro);
+        }
     }
 
-    public ResponseEntity<List<Produto>> buscarProdutos(){
+    public ResponseEntity buscarProdutos(){
         try{
             return ResponseEntity.ok().body(repository.findAll());
         }catch (Exception e){
             String erro = "Não existem produtos";
-            //eu nao lembro pra que serve o build, ve oque vc acha e se estiver certo esse tratamento vc me fala e eu faço nos outros
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.badRequest().body(erro);
         }
     }
 
-    public Optional<Produto> buscarProdutoId(Long id){
-        return repository.findById(id);
-    }
-
-    public BigDecimal precoProduto(Long id) {
-        return repository.findById(id).get().getValorProduto();
+    public ResponseEntity buscarProdutoId(Long id){
+        try {
+            return ResponseEntity.ok().body(repository.findById(id));
+        }catch (Exception e){
+            String erro = "Produto não está cadastrado no sistema";
+            return ResponseEntity.badRequest().body(erro);
+        }
     }
 
     public ResponseEntity buscarProdutoTexto(String descricao){

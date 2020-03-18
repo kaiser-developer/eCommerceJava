@@ -29,7 +29,7 @@ public class CategoriaService {
         try {
             return ResponseEntity.ok().body(repository.findAll());
         } catch (Exception e) {
-            String erro = "Categoria nao existe";
+            String erro = "Erro ao buscar categorias";
             return ResponseEntity.badRequest().body(erro);
         }
 

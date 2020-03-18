@@ -24,18 +24,13 @@ public class ProdutoController {
     }
 
     @GetMapping("buscar-produto")
-    public List<Produto> buscarProdutos(){
+    public ResponseEntity buscarProdutos(){
         return service.buscarProdutos();
     }
 
     @GetMapping("buscar-produto/{id}")
-    public Optional<Produto> buscarProdutoId(@PathVariable("id") Long id){
+    public ResponseEntity buscarProdutoId(@PathVariable("id") Long id){
         return service.buscarProdutoId(id);
-    }
-
-    @GetMapping("preco-produto/{id}")
-    public BigDecimal precoProduto(@PathVariable("id") Long id){
-        return service.precoProduto(id);
     }
 
     @GetMapping("buscar-produto/filtro/{descricao}")
