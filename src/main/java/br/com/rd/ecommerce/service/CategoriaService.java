@@ -14,12 +14,24 @@ public class CategoriaService {
     private CategoriaRepository repository;
 
     public ResponseEntity salvarCategoria(CategoriaDTO categoriaDTO){
-        Categoria categoria = new Categoria();
-        categoria.setDescricao(categoriaDTO.getDescCategoria());
-        return ResponseEntity.ok().body(repository.save(categoria));
+        try{
+            Categoria categoria = new Categoria();
+            categoria.setDescricao(categoriaDTO.getDescricao());
+            return ResponseEntity.ok().body(repository.save(categoria));
+        }catch (Exception e){
+            String erro = "Categoria ja existente";
+            return ResponseEntity.badRequest().body(erro);
+        }
     }
 
-    public ResponseEntity buscarCategoria(){
-        return ResponseEntity.ok().body(repository.findAll());
+    public ResponseEntity buscarCategoria() {
+
+        try {
+            return ResponseEntity.ok().body(repository.findAll());
+        } catch (Exception e) {
+            String erro = "Categoria nao existe";
+            return ResponseEntity.badRequest().body(erro);
+        }
+
     }
 }

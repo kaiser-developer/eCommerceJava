@@ -26,24 +26,29 @@ public class EnderecoService {
     }
 
     public ResponseEntity cadastrarEndereco(EnderecoDTO enderecoDTO){
-        if(enderecoDTO.getCep() == null){
-            return ResponseEntity.ok().body(null);
-        }else if(enderecoDTO.getCep() == null || enderecoDTO.getBairro() == null || enderecoDTO.getCidade() == null &&
-                enderecoDTO.getDestinatario() == null || enderecoDTO.getEstado() == null && enderecoDTO.getLogradouro() == null
-                && enderecoDTO.getCodCliente() == null || enderecoDTO.getNumero() == null){
-            return ResponseEntity.ok().body(null);
-        }else{
-            Endereco endereco = new Endereco();
-            endereco.setBairro(enderecoDTO.getBairro());
-            endereco.setCep(enderecoDTO.getCep());
-            endereco.setCidade(enderecoDTO.getCidade());
-            endereco.setComplemento(enderecoDTO.getComplemento());
-            endereco.setDestinatario(enderecoDTO.getDestinatario());
-            endereco.setCodCliente(enderecoDTO.getCodCliente());
-            endereco.setNumero(enderecoDTO.getNumero());
-            endereco.setLogradouro(enderecoDTO.getLogradouro());
-            endereco.setEstado(enderecoDTO.getEstado());
-            return ResponseEntity.ok().body(repository.save(endereco));
+        try{
+            if(enderecoDTO.getCep() == null){
+                return ResponseEntity.ok().body(null);
+            }else if(enderecoDTO.getCep() == null || enderecoDTO.getBairro() == null || enderecoDTO.getCidade() == null &&
+                    enderecoDTO.getDestinatario() == null || enderecoDTO.getEstado() == null && enderecoDTO.getLogradouro() == null
+                    && enderecoDTO.getCodCliente() == null || enderecoDTO.getNumero() == null){
+                return ResponseEntity.ok().body(null);
+            }else {
+                Endereco endereco = new Endereco();
+                endereco.setBairro(enderecoDTO.getBairro());
+                endereco.setCep(enderecoDTO.getCep());
+                endereco.setCidade(enderecoDTO.getCidade());
+                endereco.setComplemento(enderecoDTO.getComplemento());
+                endereco.setDestinatario(enderecoDTO.getDestinatario());
+                endereco.setCodCliente(enderecoDTO.getCodCliente());
+                endereco.setNumero(enderecoDTO.getNumero());
+                endereco.setLogradouro(enderecoDTO.getLogradouro());
+                endereco.setEstado(enderecoDTO.getEstado());
+                return ResponseEntity.ok().body(repository.save(endereco));
+            }
+        } catch (Exception e){
+            String erro = "Erro ao cadastrar o enedereço";
+            return ResponseEntity.badRequest().body(erro);
         }
     }
 }

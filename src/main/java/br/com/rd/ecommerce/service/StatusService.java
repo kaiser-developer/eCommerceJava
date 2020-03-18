@@ -14,11 +14,16 @@ public class StatusService {
     private StatusRepository repository;
 
     public ResponseEntity cadastrarStatus(StatusDTO statusDTO){
-        if(statusDTO == null || statusDTO.getDescricao() == null){
-            return ResponseEntity.ok().body(null);
+        try{
+            if(statusDTO == null || statusDTO.getDescricao() == null){
+                return ResponseEntity.ok().body(null);
+            }
+            Status status = new Status();
+            status.setDescricao(statusDTO.getDescricao());
+            return ResponseEntity.ok().body(repository.save(status));
+        }catch (Exception e){
+            String erro = "Status de pedido inexistente";
+            return ResponseEntity.badRequest().body(erro);
         }
-        Status status = new Status();
-        status.setDescricao(statusDTO.getDescricao());
-        return ResponseEntity.ok().body(repository.save(status));
     }
 }

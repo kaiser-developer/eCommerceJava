@@ -13,11 +13,11 @@ public class ClienteService {
     @Autowired
     private ClienteRepository repository;
 
-    public ResponseEntity criarCliente(ClienteDTO clienteDTO){
-        if(repository.findByEmail(clienteDTO.getEmail()) != null){
+    public ResponseEntity criarCliente(ClienteDTO clienteDTO) {
+        if (repository.findByEmail(clienteDTO.getEmail()) != null) {
             return ResponseEntity.ok().body(1);
         }
-        if(repository.findByCpf(clienteDTO.getCpf()) != null){
+        if (repository.findByCpf(clienteDTO.getCpf()) != null) {
             return ResponseEntity.ok().body(2);
         }
 
@@ -32,11 +32,11 @@ public class ClienteService {
         return ResponseEntity.ok().body(repository.save(cliente));
     }
 
-    public ResponseEntity fazerLogin(String email, String senha){
+    public ResponseEntity fazerLogin(String email, String senha) {
         Cliente cliente = repository.findByEmailAndSenha(email, senha);
-        if(cliente != null){
+        if (cliente != null) {
             return ResponseEntity.ok().body(cliente);
-        }else{
+        } else {
             return ResponseEntity.ok().body(null);
         }
     }
