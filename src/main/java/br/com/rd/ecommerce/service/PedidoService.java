@@ -38,6 +38,7 @@ public class PedidoService {
             pedido.setVlFrete(pedidoDTO.getVlFrete());
             pedido.setCodCliente(pedidoDTO.getCodCliente());
             pedido.setVlPedido(pedidoDTO.getVlPedido());
+            pedido.setCupom(pedidoDTO.getCupom());
             pedido.setStatus(status);
             for (ItemPedidoDTO itemDTO : pedidoDTO.getItensPedido()
             ) {

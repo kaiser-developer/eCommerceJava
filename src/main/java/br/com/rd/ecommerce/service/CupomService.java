@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class CupomService {
 
     @Autowired
-    private CupomRepositoy repositoy;
+    private CupomRepositoy repository;
 
     public ResponseEntity cadastrarCupom(CupomDTO cupomDTO){
         try {
@@ -20,7 +20,7 @@ public class CupomService {
             cupom.setDesconto(cupomDTO.getDesconto());
             cupom.setNome(cupomDTO.getNome());
 
-            return ResponseEntity.ok().body(repositoy.save(cupom));
+            return ResponseEntity.ok().body(repository.save(cupom));
         } catch (Exception e) {
             String erro = "Erro ao cadastrar cupom no banco";
             return ResponseEntity.badRequest().body(erro);
@@ -29,9 +29,18 @@ public class CupomService {
 
     public ResponseEntity buscarCupom(CupomDTO cupomDTO){
         try {
-            return ResponseEntity.ok().body(repositoy.findByNome(cupomDTO.getNome()));
+            return ResponseEntity.ok().body(repository.findByNome(cupomDTO.getNome()));
         } catch (Exception e){
             String erro = "Erro ao buscar cupom";
+            return ResponseEntity.badRequest().body(erro);
+        }
+    }
+
+    public ResponseEntity buscarTodosCupons(){
+        try {
+            return ResponseEntity.ok().body(repository.findAll());
+        } catch (Exception e){
+            String erro = "Erro ao buscar cupons";
             return ResponseEntity.badRequest().body(erro);
         }
     }

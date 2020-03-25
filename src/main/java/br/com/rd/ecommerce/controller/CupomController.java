@@ -5,6 +5,7 @@ import br.com.rd.ecommerce.model.entity.Cupom;
 import br.com.rd.ecommerce.service.CupomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,5 +24,10 @@ public class CupomController {
     @PostMapping("buscar-cupom")
     public ResponseEntity buscarCupom(@RequestBody CupomDTO cupomDTO){
         return service.buscarCupom(cupomDTO);
+    }
+
+    @GetMapping("buscar-todos-cupons")
+    public ResponseEntity buscartodosCupons(){
+        return service.buscarTodosCupons();
     }
 }

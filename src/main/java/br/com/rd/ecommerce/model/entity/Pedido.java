@@ -44,6 +44,10 @@ public class Pedido {
     @JoinColumn(name = "cod_status")
     private Status status;
 
+    @ManyToOne
+    @JoinColumn(name = "cod_cupom")
+    private Cupom cupom;
+
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "cod_pedido")
     private List<ItemPedido> itens;

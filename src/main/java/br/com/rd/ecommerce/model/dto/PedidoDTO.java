@@ -1,5 +1,6 @@
 package br.com.rd.ecommerce.model.dto;
 
+import br.com.rd.ecommerce.model.entity.Cupom;
 import br.com.rd.ecommerce.model.entity.Endereco;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,4 +22,5 @@ public class PedidoDTO {
     private Long codEndereco;
     private Long codCliente;
     private List<ItemPedidoDTO> itensPedido;
+    private Cupom cupom;
 }
