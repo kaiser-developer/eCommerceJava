@@ -20,3 +20,5 @@ public class ProdutoDTO {
     private BigDecimal valorProduto;
     private List<Imagem> imagens;
 }
+
+

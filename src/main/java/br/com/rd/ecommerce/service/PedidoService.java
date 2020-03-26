@@ -56,4 +56,8 @@ public class PedidoService {
             return ResponseEntity.badRequest().body(erro);
         }
     }
+
+    public ResponseEntity buscarPedidos(Long codCliente){
+        return ResponseEntity.ok().body(repository.findByCodCliente(codCliente));
+    }
 }
