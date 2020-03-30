@@ -58,6 +58,6 @@ public class PedidoService {
     }
 
     public ResponseEntity buscarPedidos(Long codCliente){
-        return ResponseEntity.ok().body(repository.findByCodCliente(codCliente));
+        return ResponseEntity.ok().body(repository.findByCodClienteOrderByDtPedidoDesc(codCliente));
     }
 }

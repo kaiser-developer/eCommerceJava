@@ -32,8 +32,11 @@ public class ClienteService {
             cliente.setSenha(senha);
             cliente.setTelefone(clienteDTO.getTelefone());
             cliente.setSexo(clienteDTO.getSexo());
+            cliente = repository.save(cliente);
 
-            return ResponseEntity.ok().body(repository.save(cliente));
+            ClienteDTO clienteDTOcriado = new ClienteDTO(cliente.getCodCliente(), cliente.getNome(), cliente.getCpf(),
+                    cliente.getEmail(), null, cliente.getTelefone(), cliente.getSexo());
+            return ResponseEntity.ok().body(clienteDTOcriado);
         }catch (Exception e){
             String erro = "Não foi possivel cadastrar o usuario!";
             return ResponseEntity.badRequest().body(erro);
@@ -44,9 +47,11 @@ public class ClienteService {
         try {
             Cliente cliente = repository.findByEmail(email);
             if (cliente != null && BCrypt.checkpw(senha, cliente.getSenha())){
-                return ResponseEntity.ok().body(cliente);
+                ClienteDTO clienteDTO = new ClienteDTO(cliente.getCodCliente(), cliente.getNome(), cliente.getCpf(),
+                cliente.getEmail(), null, cliente.getTelefone(), cliente.getSexo());
+                return ResponseEntity.ok().body(clienteDTO);
             } else {
-                return ResponseEntity.ok().body("Email ou/e senha incorretos");
+                return ResponseEntity.notFound().build();
             }
         } catch (Exception e){
             String erro = "Não foi possivel autenticar tente novamente";

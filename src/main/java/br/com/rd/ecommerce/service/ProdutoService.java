@@ -42,7 +42,7 @@ public class ProdutoService {
 
     public ResponseEntity buscarProdutos(){
         try{
-            return ResponseEntity.ok().body(repository.findAll());
+            return ResponseEntity.status(200).body(repository.findAll());
         }catch (Exception e){
             String erro = "Não existem produtos";
             return ResponseEntity.badRequest().body(erro);

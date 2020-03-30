@@ -51,4 +51,7 @@ public class Pedido {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "cod_pedido")
     private List<ItemPedido> itens;
+
+    @Column(name = "dt_entrega")
+    private Date dataEntrega;
 }
