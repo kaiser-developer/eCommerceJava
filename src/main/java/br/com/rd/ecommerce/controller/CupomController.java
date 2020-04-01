@@ -16,7 +16,7 @@ public class CupomController {
     @Autowired
     private CupomService service;
 
-    @PostMapping("criar-cupom")
+    @PostMapping("cadastrar-cupom")
     public ResponseEntity cadastrarCupom(@RequestBody CupomDTO cupomDTO){
         return service.cadastrarCupom(cupomDTO);
     }

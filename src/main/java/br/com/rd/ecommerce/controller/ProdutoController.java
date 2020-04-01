@@ -18,7 +18,7 @@ public class ProdutoController {
     @Autowired
     ProdutoService service;
 
-    @PostMapping("criar-produto")
+    @PostMapping("cadastrar-produto")
     public ResponseEntity cadastrarProduto(@RequestBody ProdutoDTO produtoDTO){
         return service.salvarProduto(produtoDTO);
     }

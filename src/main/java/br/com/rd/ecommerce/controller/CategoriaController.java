@@ -15,7 +15,7 @@ public class CategoriaController {
     @Autowired
     CategoriaService service;
 
-    @PostMapping("criar-categoria")
+    @PostMapping("cadastrar-categoria")
     public ResponseEntity cadastrarCategoria(@RequestBody CategoriaDTO categoriaDTO){
         return service.salvarCategoria(categoriaDTO);
     }
