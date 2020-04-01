@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service("PedidoService")
 public class PedidoService {
@@ -59,5 +60,14 @@ public class PedidoService {
 
     public ResponseEntity buscarPedidos(Long codCliente){
         return ResponseEntity.ok().body(repository.findByCodClienteOrderByDtPedidoDesc(codCliente));
+    }
+    public ResponseEntity cancelarPedido(Long codPedido){
+        return repository.findById(codPedido).map(pedido -> {
+            Status cancelado = new Status();
+            cancelado.setCod_status(34l);
+            pedido.setStatus(cancelado);
+            return ResponseEntity.ok().body(repository.save(pedido));
+        }).orElse(ResponseEntity.status(404).build());
+
     }
 }

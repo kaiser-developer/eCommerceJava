@@ -16,7 +16,7 @@ public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "cod_pedido")
-    private Integer codPedido;
+    private Long codPedido;
 
     @Column(name = "dt_pedido")
     @Temporal(TemporalType.TIMESTAMP)

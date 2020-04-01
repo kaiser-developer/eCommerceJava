@@ -23,6 +23,10 @@ public class PedidoController {
     public ResponseEntity buscarPedidos(@PathVariable ("id") Long codCliente){
         return service.buscarPedidos(codCliente);
     }
+    @PatchMapping("cancelar-pedido/{id}")
+    public ResponseEntity cancelarPedido(@PathVariable ("id") Long codPedido){
+        return service.cancelarPedido(codPedido);
+    }
 }
 
 
