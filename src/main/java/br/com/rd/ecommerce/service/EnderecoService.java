@@ -56,4 +56,9 @@ public class EnderecoService {
             return ResponseEntity.badRequest().body(erro);
         }
     }
+
+    public ResponseEntity buscarEndereco(Long id){
+        return repository.findById(id).map(endereco -> ResponseEntity.ok().body(endereco))
+                .orElse(ResponseEntity.badRequest().build());
+    }
 }

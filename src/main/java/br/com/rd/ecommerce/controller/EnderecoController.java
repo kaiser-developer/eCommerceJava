@@ -21,4 +21,9 @@ public class EnderecoController {
     public ResponseEntity cadastrarEndereco(@RequestBody EnderecoDTO enderecoDTO){
         return service.cadastrarEndereco(enderecoDTO);
     }
+
+    @GetMapping("endereco/{id}")
+    public ResponseEntity buscarEndereco(@PathVariable("id") Long id){
+        return service.buscarEndereco(id);
+    }
 }
