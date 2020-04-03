@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.websocket.server.PathParam;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -21,6 +22,15 @@ public class ProdutoController {
     @PostMapping("cadastrar-produto")
     public ResponseEntity cadastrarProduto(@RequestBody ProdutoDTO produtoDTO){
         return service.salvarProduto(produtoDTO);
+    }
+
+    @PostMapping("cadastrar-produtos")
+    public ResponseEntity cadastrarProdutos(@RequestBody List<ProdutoDTO> produtosDTO){
+        List<Produto> produtos = new ArrayList<>();
+        produtosDTO.forEach(produtoDTO -> {
+             service.salvarProduto(produtoDTO);
+        });
+        return ResponseEntity.ok().body("produtos");
     }
 
     @GetMapping("buscar-produto")
