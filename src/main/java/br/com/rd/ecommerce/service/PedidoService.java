@@ -64,7 +64,7 @@ public class PedidoService {
     public ResponseEntity cancelarPedido(Long codPedido){
         return repository.findById(codPedido).map(pedido -> {
             Status cancelado = new Status();
-            cancelado.setCod_status(34l);
+            cancelado.setCod_status(3l);
             cancelado.setDescricao("Compra cancelada");
             pedido.setStatus(cancelado);
             return ResponseEntity.ok().body(repository.save(pedido));
