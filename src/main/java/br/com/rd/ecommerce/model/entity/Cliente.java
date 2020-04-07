@@ -34,6 +34,9 @@ public class Cliente {
     @Column(name = "ds_senha")
     private String senha;
 
+    @Column(name = "ds_recuperar_senha")
+    private String codRecuperarSenha;
+
     @OneToMany
     @JoinColumn(name = "cod_cliente")
     private List<Endereco> enderecos;

@@ -20,6 +20,8 @@ public class PedidoService {
 
     @Autowired
     private PedidoRepository repository;
+    @Autowired
+    private ProdutoService produtoService;
 
     public ResponseEntity cadastrarPedido(PedidoDTO pedidoDTO){
         try {
@@ -49,6 +51,7 @@ public class PedidoService {
 
                 itensPedido.add(itemPedido);
             }
+            produtoService.atualizarEstoque(itensPedido);
             pedido.setItens(itensPedido);
 
             return ResponseEntity.ok().body(repository.save(pedido));

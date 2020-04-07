@@ -2,6 +2,7 @@ package br.com.rd.ecommerce.service;
 
 import br.com.rd.ecommerce.model.dto.ProdutoDTO;
 import br.com.rd.ecommerce.model.entity.Imagem;
+import br.com.rd.ecommerce.model.entity.ItemPedido;
 import br.com.rd.ecommerce.model.entity.Produto;
 import br.com.rd.ecommerce.repository.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ import static org.springframework.http.ResponseEntity.badRequest;
 public class ProdutoService {
 
     @Autowired
-    ProdutoRepository repository;
+    private ProdutoRepository repository;
 
     public ResponseEntity salvarProduto(ProdutoDTO produtoDto){
 
@@ -65,5 +66,17 @@ public class ProdutoService {
             String erro = "Não existe produtos com essa descrição";
             return badRequest().body(erro);
         }
+    }
+
+    public void atualizarEstoque(List<ItemPedido> itens){
+        itens.forEach(itemPedido -> {
+            repository.findById(itemPedido.getCodProduto()).map(
+                    produto -> {
+                       produto.setQtdProduto(produto.getQtdProduto() - itemPedido.getQuantidade());
+                       repository.save(produto);
+                        return null;
+                    }
+            );
+        });
     }
 }

@@ -5,6 +5,7 @@ import br.com.rd.ecommerce.model.entity.Cupom;
 import br.com.rd.ecommerce.repository.CupomRepositoy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service("CupomService")
@@ -19,7 +20,6 @@ public class CupomService {
             cupom.setAtivo(true);
             cupom.setDesconto(cupomDTO.getDesconto());
             cupom.setNome(cupomDTO.getNome());
-
             return ResponseEntity.ok().body(repository.save(cupom));
         } catch (Exception e) {
             String erro = "Erro ao cadastrar cupom no banco";

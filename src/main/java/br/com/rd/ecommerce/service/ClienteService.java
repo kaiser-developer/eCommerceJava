@@ -1,11 +1,14 @@
 package br.com.rd.ecommerce.service;
 
+import br.com.rd.ecommerce.controller.EmailController;
 import br.com.rd.ecommerce.model.dto.ClienteDTO;
 import br.com.rd.ecommerce.model.entity.Cliente;
 import br.com.rd.ecommerce.repository.ClienteRepository;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 @Service("ClienteService")
@@ -13,6 +16,9 @@ public class ClienteService {
 
     @Autowired
     private ClienteRepository repository;
+
+    @Autowired
+    private EmailController emailController;
 
     public ResponseEntity criarCliente(ClienteDTO clienteDTO) {
         try {
@@ -56,6 +62,55 @@ public class ClienteService {
         } catch (Exception e){
             String erro = "Não foi possivel autenticar tente novamente";
             return ResponseEntity.badRequest().body(erro);
+        }
+    }
+
+    public ResponseEntity recuperarSenha(String email){
+        try {
+            Cliente cliente = repository.findByEmail(email);
+            if(cliente != null){
+                String codigo = RandomStringUtils.randomAlphanumeric(8);
+                cliente.setCodRecuperarSenha(codigo);
+                repository.save(cliente);
+                emailController.emailRecuperacaoSenha(cliente);
+                apagarCodRecuperarSenha(cliente);
+                return ResponseEntity.ok().body(true);
+            }else {
+                return ResponseEntity.ok().body(false);
+            }
+        } catch (Exception e){
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @Async
+    public void apagarCodRecuperarSenha(Cliente cliente){
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(3600000);
+                } catch (InterruptedException e) {
+                    System.out.println(e);
+                }
+                cliente.setCodRecuperarSenha(null);
+                repository.save(cliente);
+            }
+        }).start();
+    }
+
+    public ResponseEntity redefinirSenha(String[] dados){
+        try {
+            Cliente cliente = repository.findByEmail(dados[0]);
+            if (cliente.getCodRecuperarSenha().equals(dados[1])) {
+                cliente.setSenha(BCrypt.hashpw(dados[2], BCrypt.gensalt()));
+                cliente.setCodRecuperarSenha(null);
+                return ResponseEntity.ok().body(repository.save(cliente));
+            } else {
+                return null;
+            }
+        } catch (Exception e){
+            return ResponseEntity.badRequest().build();
         }
     }
 }
