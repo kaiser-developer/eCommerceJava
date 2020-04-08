@@ -89,7 +89,7 @@ public class ClienteService {
             @Override
             public void run() {
                 try {
-                    Thread.sleep(3600000);
+                    Thread.sleep(600000);
                 } catch (InterruptedException e) {
                     System.out.println(e);
                 }
