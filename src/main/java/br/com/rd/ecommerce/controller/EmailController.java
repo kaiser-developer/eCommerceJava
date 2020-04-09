@@ -21,7 +21,7 @@ public class EmailController {
                         "você solicitou a recuperação da sua senha recentemente\n\n" +
                         "Use o seguinte código de recupeção de senha: " + cliente.getCodRecuperarSenha() +
                         "\n\n" +
-                        "Você tem 1 hora para utilizar o código" +
+                        "Você tem 10 minutos para utilizar o código" +
                         "\n\nCaso não tenha feito a solicitação desconsidere essa mensagem!");
                 message.setTo(cliente.getEmail());
                 message.setSubject("Confirmação para redefinição de senha do Wig's House");
@@ -34,5 +34,10 @@ public class EmailController {
                 }
             }
         }).start();
+    }
+
+    @Async
+    public void enviarEmailStatusPedido(){
+
     }
 }
