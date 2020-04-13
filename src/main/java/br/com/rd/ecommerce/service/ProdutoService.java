@@ -11,8 +11,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.swing.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,6 +27,9 @@ public class ProdutoService {
 
     @Autowired
     private ProdutoRepository repository;
+
+    @PersistenceContext
+    private EntityManager em;
 
     public ResponseEntity salvarProduto(ProdutoDTO produtoDto){
 
@@ -78,5 +85,32 @@ public class ProdutoService {
                     }
             );
         });
+    }
+
+    public ResponseEntity produtosMaisVendidos(){
+        List<Produto> produtos = null;
+
+        String sql =
+        new StringBuffer()
+                .append("SELECT p.* FROM TB_PRODUTO p ")
+                    .append("INNER JOIN (SELECT ip.cod_produto, SUM(ip.quantidade) AS qtd FROM TB_PEDIDO_ITEM ip GROUP BY ip.cod_produto ORDER BY 2 DESC) ")
+                .append("MAIS_VENDIDOS ON (MAIS_VENDIDOS.cod_produto = p.cod_produto) LIMIT 4").toString();
+        Query query = em.createNativeQuery(sql, Produto.class);
+        produtos = query.getResultList();
+        return ResponseEntity.ok().body(produtos);
+    }
+
+    public List<Produto> produtosPedido(Long codPedido){
+        List<Produto> produtos = null;
+
+        String sql =
+                new StringBuffer()
+                .append("SELECT p.* FROM  TB_PRODUTO p ")
+                .append("INNER JOIN ")
+                .append("(SELECT tpi.COD_PRODUTO FROM tb_pedido_item tpi WHERE tpi.COD_PEDIDO = "+ codPedido +") tb_aux ")
+                .append("ON p.COD_PRODUTO = tb_aux.COD_PRODUTO").toString();
+        Query query = em.createNativeQuery(sql, Produto.class);
+        produtos = query.getResultList();
+        return produtos;
     }
 }

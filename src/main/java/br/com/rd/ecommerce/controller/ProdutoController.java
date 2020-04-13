@@ -47,4 +47,9 @@ public class ProdutoController {
     public ResponseEntity buscarProdutoDescricao(@PathVariable("descricao") String descricao){
         return service.buscarProdutoTexto(descricao);
     }
+
+    @GetMapping("buscar-produtos/mais-vendidos")
+    public ResponseEntity produtosMaisVendidos(){
+        return service.produtosMaisVendidos();
+    }
 }
