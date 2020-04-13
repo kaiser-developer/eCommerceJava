@@ -34,11 +34,7 @@ public class Doacao {
     @ManyToOne
     @JoinColumn(name = "cod_status")
     private Status status;
-
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "cod_pedido")
-    private List<ItemDoado> itensDoados;
-
+    
     @Column(name = "ds_form_pagto_doacao")
     private String dsFormaPagto;
 

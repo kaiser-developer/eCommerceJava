@@ -25,10 +25,6 @@ public class DoacaoService {
             if(doacaoDTO == null) {
                 return ResponseEntity.ok().body(0);
             }
-            else if(doacaoDTO.getDsFormaPagto() == null || doacaoDTO.getLocalDoacao() == null ||
-                    doacaoDTO.getItensDoados().size() == 0) {
-                return ResponseEntity.ok().body(1);
-            }
 
             Doacao doacao = new Doacao();
             Status status = new Status();
@@ -41,14 +37,6 @@ public class DoacaoService {
             doacao.setVlDoacao(doacaoDTO.getVlDoacao());
             doacao.setCodCliente(doacaoDTO.getCodCliente());
             doacao.setStatus(doacaoDTO.getStatus());
-            for(ItemDoadoDTO itemDTO : doacaoDTO.getItensDoados()) {
-                ItemDoado itemDoado = new ItemDoado();
-                itemDoado.setQuantidadeDoada(itemDTO.getQuantidadeDoada());
-                itemDoado.setCodProdutoDoacao(itemDTO.getCodItemDoado());
-
-                itensDoados.add(itemDoado);
-            }
-            doacao.setItensDoados(itensDoados);
 
             return ResponseEntity.ok().body(repository.save(doacao));
             } catch (Exception e) {

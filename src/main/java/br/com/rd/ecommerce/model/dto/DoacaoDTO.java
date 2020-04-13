@@ -19,7 +19,6 @@ public class DoacaoDTO {
     private String localDoacao;
     private BigDecimal vlDoacao;
     private Status status;
-    private List<ItemDoadoDTO> itensDoados;
     private String dsFormaPagto;
     private Long codCliente;
 
