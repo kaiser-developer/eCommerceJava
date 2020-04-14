@@ -153,4 +153,18 @@ public class ProdutoService {
             return ResponseEntity.badRequest().body(erro + e.getMessage());
         }
     }
+
+    public List<Produto> produtosPedido(Long codPedido){
+        List<Produto> produtos = null;
+
+        String sql =
+                new StringBuffer()
+                        .append("SELECT p.* FROM  TB_PRODUTO p ")
+                        .append("INNER JOIN ")
+                        .append("(SELECT tpi.COD_PRODUTO FROM tb_pedido_item tpi WHERE tpi.COD_PEDIDO = "+ codPedido +") tb_aux ")
+                        .append("ON p.COD_PRODUTO = tb_aux.COD_PRODUTO").toString();
+        Query query = em.createNativeQuery(sql, Produto.class);
+        produtos = query.getResultList();
+        return produtos;
+    }
 }

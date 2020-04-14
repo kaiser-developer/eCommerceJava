@@ -5,7 +5,10 @@ import br.com.rd.ecommerce.model.entity.Cupom;
 import br.com.rd.ecommerce.service.CupomService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class CupomController {
@@ -26,10 +29,5 @@ public class CupomController {
     @GetMapping("buscar-todos-cupons")
     public ResponseEntity buscartodosCupons(){
         return service.buscarTodosCupons();
-    }
-
-    @GetMapping("buscar-cupons-cliente/{codCliente}")
-    public ResponseEntity buscarCuponsCliente(@PathVariable("codCliente") Long codCliente){
-        return service.buscarCuponsCliente(codCliente);
     }
 }
