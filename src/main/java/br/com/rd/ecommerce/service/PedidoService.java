@@ -151,4 +151,8 @@ public class PedidoService {
 
         return pedidoEmailDTO;
     }
+
+    public List<Pedido> filtrarCupom(Long codCliente){
+        return repository.findByCodClienteAndCupomIsNotNull(codCliente);
+    }
 }
