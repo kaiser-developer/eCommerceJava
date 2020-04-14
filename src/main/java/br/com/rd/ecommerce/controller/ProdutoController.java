@@ -64,4 +64,9 @@ public class ProdutoController {
     public ResponseEntity produtosCategoria(@PathVariable("idProduto") Long idProduto){
         return service.produtosCategoria(idProduto);
     }
+
+    @GetMapping("buscar-produtos/mais-vendidos")
+    public ResponseEntity produtosMaisVendidos(){
+        return service.produtosMaisVendidos();
+    }
 }

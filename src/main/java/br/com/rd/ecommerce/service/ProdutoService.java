@@ -167,4 +167,17 @@ public class ProdutoService {
         produtos = query.getResultList();
         return produtos;
     }
+
+    public ResponseEntity produtosMaisVendidos(){
+        List<Produto> produtos = null;
+
+        String sql =
+                new StringBuffer()
+                        .append("SELECT p.* FROM TB_PRODUTO p ")
+                        .append("INNER JOIN (SELECT ip.cod_produto, SUM(ip.quantidade) AS qtd FROM TB_PEDIDO_ITEM ip GROUP BY ip.cod_produto ORDER BY 2 DESC) ")
+                        .append("MAIS_VENDIDOS ON (MAIS_VENDIDOS.cod_produto = p.cod_produto) LIMIT 4").toString();
+        Query query = em.createNativeQuery(sql, Produto.class);
+        produtos = query.getResultList();
+        return ResponseEntity.ok().body(produtos);
+    }
 }
