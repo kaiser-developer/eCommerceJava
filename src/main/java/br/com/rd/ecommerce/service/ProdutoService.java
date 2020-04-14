@@ -140,17 +140,19 @@ public class ProdutoService {
         }
     }
 
-    public ResponseEntity produtosCategoria(Long codProduto, Long codCategoria){
+    public ResponseEntity produtosCategoria(Long codProduto){
         try {
             List<Produto> produtos = null;
             String sql =
                     new StringBuffer()
-                            .append("SELECT p.* FROM TB_PRODUTO p LEFT JOIN ")
-                            .append("(SELECT tp.cod_produto, sum(tp.quantidade) as quantidade ")
+                            .append("SELECT p.* FROM TB_PRODUTO p ")
+                            .append("LEFT JOIN (SELECT tp.cod_produto, sum(tp.quantidade) as quantidade ")
                             .append("FROM TB_PEDIDO_ITEM tp GROUP BY tp.COD_PRODUTO) aux ")
                             .append("ON aux.COD_PRODUTO = p.COD_PRODUTO ")
-                            .append("WHERE p.COD_CATEGORIA = "+ codCategoria + "AND p.COD_PRODUTO <>" + codProduto + " ")
-                            .append("ORDER BY aux.quantidade DESC LIMIT 4").toString();
+                            .append("INNER JOIN (SELECT pro_aux.COD_CATEGORIA ")
+                            .append("FROM TB_PRODUTO pro_aux WHERE pro_aux.COD_PRODUTO = " + codProduto + ") aux2 ")
+                            .append("ON p.COD_CATEGORIA = aux2.COD_CATEGORIA ")
+                            .append("WHERE  p.COD_PRODUTO <> " + codProduto + " ORDER BY aux.quantidade DESC LIMIT 4").toString();
 
             Query query = em.createNativeQuery(sql, Produto.class);
             produtos = query.getResultList();
