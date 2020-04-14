@@ -1,25 +1,18 @@
 package br.com.rd.ecommerce.service;
 
 import br.com.rd.ecommerce.model.dto.ProdutoDTO;
-import br.com.rd.ecommerce.model.entity.Imagem;
 import br.com.rd.ecommerce.model.entity.ItemPedido;
 import br.com.rd.ecommerce.model.entity.Produto;
 import br.com.rd.ecommerce.repository.ProdutoRepository;
 import org.hibernate.QueryException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.swing.*;
-import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.springframework.http.ResponseEntity.badRequest;
 
@@ -28,11 +21,10 @@ public class ProdutoService {
 
     @Autowired
     private ProdutoRepository repository;
-
     @PersistenceContext
     private EntityManager em;
 
-    public ResponseEntity salvarProduto(ProdutoDTO produtoDto){
+    public ResponseEntity salvarProduto(ProdutoDTO produtoDto) {
 
         try {
             Produto produto = new Produto();
@@ -43,76 +35,75 @@ public class ProdutoService {
             produto.setValorProduto(produtoDto.getValorProduto());
 
             return ResponseEntity.ok().body(repository.save(produto));
-        }catch (Exception e){
+        } catch (Exception e) {
             String erro = "Falha ao tentar cadastrar o produto";
             return ResponseEntity.badRequest().body(erro);
         }
     }
 
-    public ResponseEntity buscarProdutos(){
-        try{
+    public ResponseEntity buscarProdutos() {
+        try {
             return ResponseEntity.status(200).body(repository.findAll());
-        }catch (Exception e){
+        } catch (Exception e) {
             String erro = "Não existem produtos";
             return ResponseEntity.badRequest().body(erro);
         }
     }
 
-    public ResponseEntity buscarProdutoId(Long id){
+    public ResponseEntity buscarProdutoId(Long id) {
         try {
             return ResponseEntity.ok().body(repository.findById(id));
-        }catch (Exception e){
+        } catch (Exception e) {
             String erro = "Produto não está cadastrado no sistema";
             return ResponseEntity.badRequest().body(erro);
         }
     }
 
-    public ResponseEntity buscarProdutoTexto(String descricao){
+    public ResponseEntity buscarProdutoTexto(String descricao) {
         try {
             return ResponseEntity.ok().body(repository.findByDescricaoLike("%" + descricao + "%"));
-        }catch (Exception e){
+        } catch (Exception e) {
             String erro = "Não existe produtos com essa descrição";
             return badRequest().body(erro);
         }
     }
 
-    public void atualizarEstoque(List<ItemPedido> itens){
+    public void atualizarEstoque(List<ItemPedido> itens) {
         itens.forEach(itemPedido -> {
             repository.findById(itemPedido.getCodProduto()).map(
                     produto -> {
-                       produto.setQtdProduto(produto.getQtdProduto() - itemPedido.getQuantidade());
-                       repository.save(produto);
+                        produto.setQtdProduto(produto.getQtdProduto() - itemPedido.getQuantidade());
+                        repository.save(produto);
                         return null;
                     }
             );
         });
     }
 
-    public ResponseEntity produtosMaisVendidos(){
-        List<Produto> produtos = null;
-
-        String sql =
-        new StringBuffer()
-                .append("SELECT p.* FROM TB_PRODUTO p ")
-                    .append("INNER JOIN (SELECT ip.cod_produto, SUM(ip.quantidade) AS qtd FROM TB_PEDIDO_ITEM ip GROUP BY ip.cod_produto ORDER BY 2 DESC) ")
-                .append("MAIS_VENDIDOS ON (MAIS_VENDIDOS.cod_produto = p.cod_produto) LIMIT 4").toString();
-        Query query = em.createNativeQuery(sql, Produto.class);
-        produtos = query.getResultList();
-        return ResponseEntity.ok().body(produtos);
+    public ResponseEntity atualizarProduto(Long codProduto, ProdutoDTO produtoDTO) {
+        try {
+            return repository.findById(codProduto).map(registro -> {
+                registro.setQtdProduto(produtoDTO.getQtdProduto());
+                registro.setValorProduto(produtoDTO.getValorProduto());
+                Produto atualizado = repository.save(registro);
+                return ResponseEntity.ok().body(atualizado);
+            }).orElse(ResponseEntity.notFound().build());
+        } catch (Exception e) {
+            String erro = "Erro ao tentar atualizar o produto";
+            return ResponseEntity.badRequest().body(erro);
+        }
     }
 
-    public List<Produto> produtosPedido(Long codPedido){
-        List<Produto> produtos = null;
-
-        String sql =
-                new StringBuffer()
-                .append("SELECT p.* FROM  TB_PRODUTO p ")
-                .append("INNER JOIN ")
-                .append("(SELECT tpi.COD_PRODUTO FROM tb_pedido_item tpi WHERE tpi.COD_PEDIDO = "+ codPedido +") tb_aux ")
-                .append("ON p.COD_PRODUTO = tb_aux.COD_PRODUTO").toString();
-        Query query = em.createNativeQuery(sql, Produto.class);
-        produtos = query.getResultList();
-        return produtos;
+    public ResponseEntity deletarProduto(Long codProduto) {
+        try {
+            return repository.findById(codProduto).map(registro -> {
+                repository.deleteById(codProduto);
+                return ResponseEntity.ok().build();
+            }).orElse(ResponseEntity.notFound().build());
+        }catch (Exception e){
+            String erro = "Erro ao tentar deletar produto";
+            return ResponseEntity.badRequest().body(erro);
+        }
     }
 
     public ResponseEntity produtosRecomendados(Long codProduto){
