@@ -18,14 +18,24 @@ public class StatusFaleConoscoService {
 
     public ResponseEntity cadastrarStatusFL(StatusFaleConoscoDTO statusFaleConoscoDTO){
         try{
-            if(statusFaleConoscoDTO == null || statusFaleConoscoDTO.getDescricaoStatus() == null){
+            if(statusFaleConoscoDTO == null || statusFaleConoscoDTO.getStatus() == null){
                 return ResponseEntity.ok().body(null);
             }
             StatusFaleConosco statusFaleConosco = new StatusFaleConosco();
-            statusFaleConosco.setStatus(statusFaleConoscoDTO.getDescricaoStatus());
+            statusFaleConosco.setStatus(statusFaleConoscoDTO.getStatus());
             return ResponseEntity.ok().body(repository.save(statusFaleConosco));
         }catch (Exception e){
             String erro = "Status de pedido inexistente";
+            return ResponseEntity.badRequest().body(erro);
+        }
+    }
+
+    public ResponseEntity buscarStatusFL(){
+        try {
+            return ResponseEntity.ok().body(repository.findAll());
+        }
+        catch (Exception e){
+            String erro = "Busca inexistente";
             return ResponseEntity.badRequest().body(erro);
         }
     }
