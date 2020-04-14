@@ -4,6 +4,7 @@ import br.com.rd.ecommerce.model.dto.ProdutoDTO;
 import br.com.rd.ecommerce.model.entity.ItemPedido;
 import br.com.rd.ecommerce.model.entity.Produto;
 import br.com.rd.ecommerce.repository.ProdutoRepository;
+import org.hibernate.QueryException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -97,6 +98,52 @@ public class ProdutoService {
         }catch (Exception e){
             String erro = "Erro ao tentar deletar produto";
             return ResponseEntity.badRequest().body(erro);
+        }
+    }
+
+    public ResponseEntity produtosRecomendados(Long codProduto){
+        try {
+            List<Produto> produtos = null;
+            String sql =
+                    new StringBuffer()
+                            .append("SELECT p.* FROM TB_PRODUTO p ")
+                            .append("INNER JOIN ")
+                            .append("(SELECT ip.cod_produto, SUM(ip.quantidade) AS qtd ")
+                            .append("FROM TB_PEDIDO_ITEM ip ")
+                            .append("INNER JOIN (SELECT item.COD_PEDIDO FROM TB_PEDIDO_ITEM item ")
+                            .append("WHERE item.COD_PRODUTO = " + codProduto + ") aux ")
+                            .append("ON aux.cod_pedido = ip.cod_pedido ")
+                            .append("GROUP BY ip.cod_produto ORDER BY 2 DESC) ")
+                            .append("MAIS_VENDIDOS ON (MAIS_VENDIDOS.cod_produto = p.cod_produto) ")
+                            .append("WHERE p.cod_produto <> " + codProduto + " LIMIT 4").toString();
+
+            Query query = em.createNativeQuery(sql, Produto.class);
+            produtos = query.getResultList();
+            return ResponseEntity.ok().body(produtos);
+        } catch (QueryException e){
+            String erro = "Erro ao buscar produtos";
+            return ResponseEntity.badRequest().body(erro + e.getMessage());
+        }
+    }
+
+    public ResponseEntity produtosCategoria(Long codProduto, Long codCategoria){
+        try {
+            List<Produto> produtos = null;
+            String sql =
+                    new StringBuffer()
+                            .append("SELECT p.* FROM TB_PRODUTO p LEFT JOIN ")
+                            .append("(SELECT tp.cod_produto, sum(tp.quantidade) as quantidade ")
+                            .append("FROM TB_PEDIDO_ITEM tp GROUP BY tp.COD_PRODUTO) aux ")
+                            .append("ON aux.COD_PRODUTO = p.COD_PRODUTO ")
+                            .append("WHERE p.COD_CATEGORIA = "+ codCategoria + "AND p.COD_PRODUTO <>" + codProduto + " ")
+                            .append("ORDER BY aux.quantidade DESC LIMIT 4").toString();
+
+            Query query = em.createNativeQuery(sql, Produto.class);
+            produtos = query.getResultList();
+            return ResponseEntity.ok().body(produtos);
+        } catch (QueryException e){
+            String erro = "Erro ao buscar produtos";
+            return ResponseEntity.badRequest().body(erro + e.getMessage());
         }
     }
 }
