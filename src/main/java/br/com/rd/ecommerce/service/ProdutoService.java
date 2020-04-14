@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import java.util.List;
 
 import static org.springframework.http.ResponseEntity.badRequest;
@@ -18,6 +21,8 @@ public class ProdutoService {
 
     @Autowired
     private ProdutoRepository repository;
+    @PersistenceContext
+    private EntityManager em;
 
     public ResponseEntity salvarProduto(ProdutoDTO produtoDto) {
 
