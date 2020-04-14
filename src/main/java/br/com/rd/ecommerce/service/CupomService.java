@@ -65,9 +65,7 @@ public class CupomService {
 
     public ResponseEntity atualizarCupom(Long id, @Valid CupomDTO cupomDTO) {
         try {
-            return repository.findById(id).map(guardar -> {
-                guardar.setNome(cupomDTO.getNome());
-                guardar.setDesconto(cupomDTO.getDesconto());
+            return repository.findById(id).map(guardar -> { ;
                 guardar.setAtivo(cupomDTO.getAtivo());
                 Cupom atualizado = repository.save(guardar);
                 return ResponseEntity.ok().body(atualizado);
