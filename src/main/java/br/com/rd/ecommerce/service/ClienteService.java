@@ -3,6 +3,7 @@ package br.com.rd.ecommerce.service;
 import br.com.rd.ecommerce.controller.EmailController;
 import br.com.rd.ecommerce.model.dto.ClienteDTO;
 import br.com.rd.ecommerce.model.entity.Cliente;
+import br.com.rd.ecommerce.model.entity.Status;
 import br.com.rd.ecommerce.repository.ClienteRepository;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.mindrot.jbcrypt.BCrypt;
@@ -10,6 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 @Service("ClienteService")
 public class ClienteService {
@@ -19,6 +24,9 @@ public class ClienteService {
 
     @Autowired
     private EmailController emailController;
+
+    @PersistenceContext
+    private EntityManager entityManager;
 
     public ResponseEntity criarCliente(ClienteDTO clienteDTO) {
         try {
@@ -112,5 +120,9 @@ public class ClienteService {
         } catch (Exception e){
             return ResponseEntity.badRequest().build();
         }
+    }
+
+    public Cliente retonarCliente(Long codCliente){
+        return repository.findById(codCliente).orElse(null);
     }
 }

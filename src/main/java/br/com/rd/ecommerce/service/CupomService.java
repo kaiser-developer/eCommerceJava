@@ -34,7 +34,7 @@ public class CupomService {
     public ResponseEntity cadastrarCupom(CupomDTO cupomDTO) {
         try {
             Cupom cupom = new Cupom();
-            cupom.setAtivo(true);
+            cupom.setAtivo(cupomDTO.getAtivo());
             cupom.setDesconto(cupomDTO.getDesconto());
             cupom.setNome(cupomDTO.getNome());
             return ResponseEntity.ok().body(repository.save(cupom));

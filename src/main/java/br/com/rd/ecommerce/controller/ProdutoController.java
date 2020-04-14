@@ -2,22 +2,21 @@ package br.com.rd.ecommerce.controller;
 
 import br.com.rd.ecommerce.model.dto.ProdutoDTO;
 import br.com.rd.ecommerce.model.entity.Produto;
+import br.com.rd.ecommerce.repository.ProdutoRepository;
 import br.com.rd.ecommerce.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class ProdutoController {
 
     @Autowired
     ProdutoService service;
+    ProdutoRepository repository;
 
     @PostMapping("cadastrar-produto")
     public ResponseEntity cadastrarProduto(@RequestBody ProdutoDTO produtoDTO){
@@ -46,5 +45,23 @@ public class ProdutoController {
     @GetMapping("buscar-produto/filtro/{descricao}")
     public ResponseEntity buscarProdutoDescricao(@PathVariable("descricao") String descricao){
         return service.buscarProdutoTexto(descricao);
+    }
+    @PatchMapping("atualizar-produto/{id}")
+    public ResponseEntity atualizarProduto(@PathVariable ("id") Long codProduto, @RequestBody ProdutoDTO produtoDTO) {
+        return service.atualizarProduto(codProduto, produtoDTO);
+    }
+    @DeleteMapping("deletar-produto/{id}")
+    public ResponseEntity deletarProduto(@PathVariable ("id") Long codProduto){
+        return service.deletarProduto(codProduto);
+    }
+
+    @GetMapping("buscar-produtos/recomendados/{id}")
+    public ResponseEntity produtosRecomendados(@PathVariable("id") Long id){
+        return service.produtosRecomendados(id);
+    }
+
+    @GetMapping("buscar-produtos/categoria/{idProduto}")
+    public ResponseEntity produtosCategoria(@PathVariable("idProduto") Long idProduto){
+        return service.produtosCategoria(idProduto);
     }
 }

@@ -1,19 +1,19 @@
 package br.com.rd.ecommerce.controller;
 
 import br.com.rd.ecommerce.model.dto.ClienteDTO;
-import br.com.rd.ecommerce.model.entity.Cliente;
 import br.com.rd.ecommerce.service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 @RestController
 public class ClienteController {
     @Autowired
-    ClienteService service;
+    private ClienteService service;
 
     @PostMapping("cadastrar-cliente")
     public ResponseEntity criarCliente(@RequestBody ClienteDTO clienteDTO){

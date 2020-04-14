@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StatusFaleConoscoDTO {
-    private Long cod_status;
-    private String descricaoStatus;
+    private Long codStatus;
+    private String status;
 }
