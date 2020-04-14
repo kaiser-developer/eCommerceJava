@@ -64,6 +64,8 @@ public class PedidoService {
     public ResponseEntity buscarPedidos(Long codCliente){
         return ResponseEntity.ok().body(repository.findByCodClienteOrderByDtPedidoDesc(codCliente));
     }
+
+
     public ResponseEntity cancelarPedido(Long codPedido){
         return repository.findById(codPedido).map(pedido -> {
             Status cancelado = new Status();
@@ -73,5 +75,9 @@ public class PedidoService {
             return ResponseEntity.ok().body(repository.save(pedido));
         }).orElse(ResponseEntity.status(404).build());
 
+    }
+
+    public List<Pedido> filtrarCupom(Long codCliente){
+        return repository.findByCodClienteAndCupomIsNotNull(codCliente);
     }
 }
