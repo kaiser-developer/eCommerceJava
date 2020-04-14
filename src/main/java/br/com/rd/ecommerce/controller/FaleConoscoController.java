@@ -15,7 +15,7 @@ public class FaleConoscoController {
     private FaleConoscoService service;
 
     @PostMapping("cadastrar-fale-conosco")
-    public ResponseEntity criarMensagem(@RequestBody FaleConoscoDTO FaleConoscoDTO){
-        return service.cadastrarMensagem(FaleConoscoDTO);
+    public ResponseEntity criarMensagem(@RequestBody FaleConoscoDTO faleConoscoDTO){
+        return service.cadastrarMensagem(faleConoscoDTO);
     }
 }

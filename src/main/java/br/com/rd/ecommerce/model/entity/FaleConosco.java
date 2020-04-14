@@ -31,10 +31,6 @@ public class FaleConosco {
     @Column (name = "ds_mensagem")
     private String mensagem;
 
-    @NotNull
-    @Column (name = "ds_assuntoMensagem")
-    private String assuntoMensagem;
-
     @Column (name = "cod_cliente")
     private Long codCliente;
 

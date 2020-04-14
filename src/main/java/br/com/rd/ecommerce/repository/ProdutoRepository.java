@@ -6,7 +6,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
     List<Produto> findByDescricaoLike(String descricao);
+
 }
