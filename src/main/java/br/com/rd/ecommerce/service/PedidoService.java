@@ -18,17 +18,17 @@ import java.util.List;
 public class PedidoService {
 
     @Autowired
+    private ConversaoDTO conversaoDTO;
+    @Autowired
     private PedidoRepository repository;
     @Autowired
     private ProdutoService produtoService;
     @Autowired
-    private EmailController emailController;
-    @Autowired
     private ClienteService clienteService;
     @Autowired
-    private EnderecoService enderecoService;
+    private EmailController emailController;
     @Autowired
-    private ConversaoDTO conversaoDTO;
+    private EnderecoService enderecoService;
 
 
     public ResponseEntity cadastrarPedido(PedidoDTO pedidoDTO){
