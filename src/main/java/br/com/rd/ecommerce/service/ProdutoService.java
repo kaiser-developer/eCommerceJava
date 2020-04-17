@@ -80,9 +80,9 @@ public class ProdutoService {
         });
     }
 
-    public ResponseEntity atualizarProduto(Long codProduto, ProdutoDTO produtoDTO) {
+    public ResponseEntity atualizarProduto(ProdutoDTO produtoDTO) {
         try {
-            return repository.findById(codProduto).map(registro -> {
+            return repository.findById(produtoDTO.getCodProduto()).map(registro -> {
                 registro.setQtdProduto(produtoDTO.getQtdProduto());
                 registro.setValorProduto(produtoDTO.getValorProduto());
                 Produto atualizado = repository.save(registro);
