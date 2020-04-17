@@ -26,7 +26,7 @@ public class FuncionarioService {
                 funcionario.setMatricula(funcionarioDTO.getMatricula());
                 funcionario.setNome(funcionarioDTO.getNome());
                 funcionario.setAdmin(funcionarioDTO.getAdmin());
-                String senha = BCrypt.hashpw(funcionarioDTO.getMatricula(), BCrypt.gensalt());
+                String senha = BCrypt.hashpw(funcionarioDTO.getSenha(), BCrypt.gensalt());
                 funcionario.setSenha(senha);
 
                 return ResponseEntity.ok().body(repository.save(funcionario));
@@ -37,11 +37,12 @@ public class FuncionarioService {
         }
     }
 
-    public ResponseEntity fazerLogin(FuncionarioDTO funcionarioDTO){
+    public ResponseEntity fazerLogin(String matricula, String senha){
         try {
-            Funcionario funcionario = repository.findByMatricula(funcionarioDTO.getMatricula());
-            if(funcionario!=null && BCrypt.checkpw(funcionarioDTO.getSenha(), funcionario.getSenha())){
-                return ResponseEntity.ok().body(funcionario);
+            Funcionario funcionario = repository.findByMatricula(matricula);
+            if(funcionario!=null && BCrypt.checkpw(senha, funcionario.getSenha())){
+                FuncionarioDTO funcionarioDTO = new FuncionarioDTO(funcionario.getMatricula(),funcionario.getNome(),null,null);
+                return ResponseEntity.ok().body(funcionarioDTO);
             }else{
                 String mensagem = "Matricula/Senha incorretos";
                 return ResponseEntity.ok().body(mensagem);

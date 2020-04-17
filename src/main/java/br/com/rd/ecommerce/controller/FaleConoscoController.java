@@ -4,6 +4,7 @@ import br.com.rd.ecommerce.model.dto.FaleConoscoDTO;
 import br.com.rd.ecommerce.service.FaleConoscoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,4 +19,7 @@ public class FaleConoscoController {
     public ResponseEntity criarMensagem(@RequestBody FaleConoscoDTO faleConoscoDTO){
         return service.cadastrarMensagem(faleConoscoDTO);
     }
+
+    @GetMapping("buscar-fale-conosco")
+    public ResponseEntity buscarMensagens(){return service.buscarMensagens();}
 }

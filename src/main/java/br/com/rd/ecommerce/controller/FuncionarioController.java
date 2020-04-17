@@ -16,12 +16,8 @@ public class FuncionarioController {
     FuncionarioService service;
 
     @PostMapping("cadastrar-funcionario")
-    public ResponseEntity cadastrarFuncionario(@RequestBody FuncionarioDTO funcionarioDTO){
-        return service.cadastrarFuncionario(funcionarioDTO);
-    }
+    public ResponseEntity cadastrarFuncionario(@RequestBody FuncionarioDTO funcionarioDTO) { return service.cadastrarFuncionario(funcionarioDTO); }
 
     @PostMapping("login-funcionario")
-    public ResponseEntity realizarLogin(@RequestBody FuncionarioDTO funcionarioDTO) {
-        return service.fazerLogin(funcionarioDTO);
-    }
+    public ResponseEntity realizarLogin(@RequestBody String[] dados) { return service.fazerLogin(dados[0],dados[1]); }
 }

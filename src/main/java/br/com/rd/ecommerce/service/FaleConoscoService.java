@@ -34,4 +34,13 @@ public class FaleConoscoService {
             return ResponseEntity.badRequest().body(erro);
         }
     }
+
+    public ResponseEntity buscarMensagens(){
+        try{
+            return ResponseEntity.ok().body(repository.findAll());
+        }catch (Exception e){
+            String erro = "Erro ao buscar mensagem";
+            return ResponseEntity.badRequest().body(erro);
+        }
+    }
 }
