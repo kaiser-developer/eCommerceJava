@@ -46,9 +46,9 @@ public class ProdutoController {
     public ResponseEntity buscarProdutoDescricao(@PathVariable("descricao") String descricao){
         return service.buscarProdutoTexto(descricao);
     }
-    @PatchMapping("atualizar-produto/{id}")
-    public ResponseEntity atualizarProduto(@PathVariable ("id") Long codProduto, @RequestBody ProdutoDTO produtoDTO) {
-        return service.atualizarProduto(codProduto, produtoDTO);
+    @PatchMapping("atualizar-produto")
+    public ResponseEntity atualizarProduto(@RequestBody ProdutoDTO produtoDTO) {
+        return service.atualizarProduto(produtoDTO);
     }
     @DeleteMapping("deletar-produto/{id}")
     public ResponseEntity deletarProduto(@PathVariable ("id") Long codProduto){

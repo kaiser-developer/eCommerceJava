@@ -34,6 +34,9 @@ public class FaleConosco {
     @Column (name = "cod_cliente")
     private Long codCliente;
 
+    @Column (name = "bl_respondido")
+    private boolean respondido;
+
     @NotNull
     @ManyToOne
     @JoinColumn(name = "cod_status")

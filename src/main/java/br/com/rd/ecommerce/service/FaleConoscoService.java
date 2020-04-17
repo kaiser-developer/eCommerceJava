@@ -23,6 +23,7 @@ public class FaleConoscoService {
             mensagem.setMensagem(faleConoscoDTO.getMensagem());
             mensagem.setNomeCompleto(faleConoscoDTO.getNomeCompleto());
             mensagem.setTelefone(faleConoscoDTO.getTelefone());
+            mensagem.setRespondido(false);
             status.setCodStatus(faleConoscoDTO.getStatusFL().getCodStatus());
             status.setStatus(faleConoscoDTO.getStatusFL().getStatus());
 
